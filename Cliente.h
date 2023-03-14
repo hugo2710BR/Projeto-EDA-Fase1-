@@ -12,4 +12,4 @@ typedef struct {
 Cliente* criarCliente(int id, char* nome, char* email, char* morada, int contribuinte);
 int destruirCliente(Cliente* cliente);
 
-#endif // CLIENTE_H_INCLUDED
+#endif // CLIENTE_H_INCLUDED;
