@@ -12,6 +12,6 @@ typedef struct {
 } MeioMobilidade;
 
 MeioMobilidade* criarMeioMobilidade(int id, char* tipo, int carga_atual, int capacidade, float latitude, float longitude, float autonomia);
-void destruirMeioMobilidade(MeioMobilidade* meio);
+int destruirMeioMobilidade(MeioMobilidade* meio);
 
 #endif // MEIOMOBILIDADE_H_INCLUDED

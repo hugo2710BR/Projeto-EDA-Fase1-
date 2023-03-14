@@ -9,6 +9,6 @@ typedef struct {
 } Gestor;
 
 Gestor* criarGestor(int id, char* nome, char* email, int contribuinte);
-void destruirGestor(Gestor* gestor);
+int destruirGestor(Gestor* gestor);
 
-#endif // GESTOR_H_INCLUDED
+#endif // GESTOR_H_INCLUDED;
