@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "mobilidadeeletrica.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "gestor.h": "c"
     }
 }
