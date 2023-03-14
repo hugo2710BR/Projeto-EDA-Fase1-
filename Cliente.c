@@ -8,8 +8,7 @@ Cliente* CriarCliente(int id, char* nome, char* email, float saldo) {
     strcpy(novoCliente->nome, nome);
     strcpy(novoCliente->email, email);
     novoCliente->saldo = saldo;
-    novoCliente->meios = NULL;
-    novoCliente->proximo = NULL;
+  
     return novoCliente;
 }
 

@@ -10,8 +10,7 @@ struct Cliente {
     char nome[50];
     char email[50];
     float saldo;
-    MobilidadeEletrica *meios;
-    Cliente *proximo;
+   
 };
 
 Cliente* CriarCliente(int id, char* nome, char* email, float saldo);
