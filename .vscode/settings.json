@@ -2,6 +2,7 @@
     "files.associations": {
         "mobilidadeeletrica.h": "c",
         "stdlib.h": "c",
-        "gestor.h": "c"
+        "gestor.h": "c",
+        "guardardadosbinario.h": "c"
     }
 }

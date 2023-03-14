@@ -1,15 +1,21 @@
-#ifndef CLIENTE_H_INCLUDED
-#define CLIENTE_H_INCLUDED
+#ifndef CLIENTE_H
+#define CLIENTE_H
 
-typedef struct {
-    int id;             // Identificador único do cliente
-    char nome[50];      // Nome do cliente
-    char email[50];     // Endereço de email do cliente
-    char morada[100];   // Morada do cliente
-    char contribuinte[9];   // Contribuinte do cliente
-} Cliente;
+#include "MobilidadeEletrica.h"
 
-Cliente* criarCliente(int id, char* nome, char* email, char* morada, char* contribuinte);
-int destruirCliente(Cliente* cliente);
+typedef struct Cliente Cliente;
 
-#endif // CLIENTE_H_INCLUDED;
+struct Cliente {
+    int id;
+    char nome[50];
+    char email[50];
+    float saldo;
+    MobilidadeEletrica *meios;
+    Cliente *proximo;
+};
+
+Cliente* CriarCliente(int id, char* nome, char* email, float saldo);
+Cliente* CriarClienteFixo(void);
+
+#endif /* CLIENTE_H */
+

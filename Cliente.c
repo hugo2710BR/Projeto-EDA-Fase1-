@@ -2,24 +2,18 @@
 #include <string.h>
 #include "Cliente.h"
 
-Cliente* criarCliente(int id, char* nome, char* email, char* morada, char* contribuinte) {
-    Cliente* novo_cliente = malloc(sizeof(Cliente));
-    novo_cliente->id = id;
-    strcpy(novo_cliente->nome, nome);
-    strcpy(novo_cliente->email, email);
-    strcpy(novo_cliente->morada, morada);
-    strcpy(novo_cliente->contribuinte, contribuinte);
-    return novo_cliente;
+Cliente* CriarCliente(int id, char* nome, char* email, float saldo) {
+    Cliente* novoCliente = (Cliente*) malloc(sizeof(Cliente));
+    novoCliente->id = id;
+    strcpy(novoCliente->nome, nome);
+    strcpy(novoCliente->email, email);
+    novoCliente->saldo = saldo;
+    novoCliente->meios = NULL;
+    novoCliente->proximo = NULL;
+    return novoCliente;
 }
 
-int destruirCliente(Cliente* cliente) {
-    free(cliente);
+Cliente* CriarClienteFixo(void) {
+    return CriarCliente(1, "Joao Silva", "joao.silva@email.com", 50.0);
 }
 
-Cliente** inicializarCliente(){
-    Cliente** clientes = malloc(3 * sizeof(Cliente*));
-    clientes[0] = criarCliente(1, "Hugo Brandao", "hugosoares2710@outlook.pt", "Rua Da Fontainha", "12345789");
-    clientes[1] = criarCliente(2, "Diego Brandao", "diegobrandao@outlook.pt", "Rua Da Fontainha", "987654321");
-    clientes[2] = criarCliente(3, "Manuel Brandao", "manuelsoares@outlook.pt", "Rua Da Fontainha", "214365879");
-    return clientes;
-}

@@ -1,14 +1,17 @@
-#ifndef GESTOR_H_INCLUDED
-#define GESTOR_H_INCLUDED
+#ifndef GESTOR_H
+#define GESTOR_H
 
-typedef struct {
-    int id;             // Identificador único do gestor
-    char nome[50];      // Nome do gestor
-    char email[50];     // Endereço de email do gestor
-    char contribuinte[9];
-} Gestor;
+typedef struct Gestor Gestor;
 
-Gestor* criarGestor(int id, char* nome, char* email, char* contribuinte);
-int destruirGestor(Gestor* gestor);
+struct Gestor {
+    int id;
+    char nome[50];
+    char email[50];
+    char senha[50];
+};
 
-#endif // GESTOR_H_INCLUDED;
+Gestor* CriarGestor(int id, char* nome, char* email, char* senha);
+Gestor* CriarGestorFixo(void);
+
+#endif /* GESTOR_H */
+

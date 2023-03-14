@@ -1,17 +1,18 @@
-#ifndef MOBILIDADE_ELETRICA_H
-#define MOBILIDADE_ELETRICA_H
+#ifndef MOBILIDADEELETRICA_H
+#define MOBILIDADEELETRICA_H
 
-typedef struct MeioMobilidade {
+typedef struct MobilidadeEletrica MobilidadeEletrica;
+struct MobilidadeEletrica {
     int id;
     char tipo[50];
-    int carga_bateria;
-    int capacidade;
-    float latitude;
-    float longitude;
-    int autonomia;
-} MeioMobilidade;
+    char estado[50];
+    char localizacao[50];
+    int bateria;
+    float preco;
+     MobilidadeEletrica *proximo;
+} ;
 
-MeioMobilidade* criarMeioMobilidade(int id, char* tipo, int carga_bateria, int capacidade, float latitude, float longitude, int autonomia);
-int destruirMeioMobilidade(MeioMobilidade* meio);
+MobilidadeEletrica* CriarMobilidadeEletrica(int id, char* tipo, char* estado, char* localizacao, int bateria, float preco);
+MobilidadeEletrica* CriarMobilidadeEletricaFixa(void);
 
-#endif
+#endif /* MOBILIDADEELETRICA_H */
