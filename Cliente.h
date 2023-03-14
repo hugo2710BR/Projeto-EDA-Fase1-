@@ -10,6 +10,6 @@ typedef struct {
 } Cliente;
 
 Cliente* criarCliente(int id, char* nome, char* email, char* morada, int contribuinte);
-void destruirCliente(Cliente* cliente);
+int destruirCliente(Cliente* cliente);
 
 #endif // CLIENTE_H_INCLUDED
