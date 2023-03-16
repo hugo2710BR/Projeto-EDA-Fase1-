@@ -4,5 +4,6 @@
 
 void menu();
 void GestaoClientes();
+void GestaoGestores();
 
 #endif

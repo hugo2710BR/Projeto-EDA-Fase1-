@@ -27,9 +27,13 @@ void AdicionarGestor(Gestor** gestores, int *numGestores) {
     fgets(novoGestor->nome, sizeof(novoGestor->nome), stdin);
     strtok(novoGestor->nome, "\n");
 
+    printf("Digite o email do gestor: ");
+    fgets(novoGestor->email, sizeof(novoGestor->email), stdin);
+    strtok(novoGestor->email, "\n");
+
     printf("Digite a senha do gestor: ");
     fgets(novoGestor->senha, sizeof(novoGestor->senha), stdin);
-    strtok(novoGestor->email, "\n");
+    strtok(novoGestor->senha, "\n");
 
     system("cls");
     printf("\nGestor com ID: %i foi adicionado com sucesso!\n", novoGestor->id);
