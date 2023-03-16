@@ -9,6 +9,7 @@ void menu(){
     printf("1 - Listar Mobilidade Eletrica\n");
     printf("2 - Listar Clientes\n");
     printf("3 - Listar Gestores\n");
+    printf("4 - Adicionar Cliente\n");
     printf("0 - Sair\n");
     printf("Digite a opcao desejada: ");
 }
@@ -17,6 +18,9 @@ int main(void) {
     MobilidadeEletrica* mobilidadeFixa = CriarMobilidadeEletricaFixa();
     Cliente* clienteFixo = CriarClienteFixo();
     Gestor* gestorFixo = CriarGestorFixo();
+
+    Cliente *clientes = NULL;
+    int numClientes= 0;
 
     int opcao;
     do{
@@ -33,14 +37,24 @@ int main(void) {
 
             case 2:
                 system("cls");
-                printf("\n\nCliente Fixo:\nID: %d\nNome: %s\nEmail: %s\nSaldo: %.2f\n\n",
-                    clienteFixo->id, clienteFixo->nome, clienteFixo->email, clienteFixo->saldo);
+                printf("\n\nClientes:\n");
+                printf("ID: %d\nNome: %s\nEmail: %s\nSaldo: %.2f\n\n",
+                        clienteFixo->id, clienteFixo->nome, clienteFixo->email, clienteFixo->saldo);
+                for (int i = 0; i < numClientes; i++) {
+                    printf("ID: %d\nNome: %s\nEmail: %s\nSaldo: %.2f\n\n",
+                       clientes[i].id, clientes[i].nome, clientes[i].email, clientes[i].saldo);
+                }
                 break;
 
             case 3:
                 system("cls");
                 printf("\n\nGestor Fixo:\nID: %d\nNome: %s\nEmail: %s\nSenha: %s\n\n",
                     gestorFixo->id, gestorFixo->nome, gestorFixo->email, gestorFixo->senha);
+                break;
+
+            case 4:
+                system("cls");
+                AdicionarCliente(&clientes, &numClientes);
                 break;
 
             case 0:
