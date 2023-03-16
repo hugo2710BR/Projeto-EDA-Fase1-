@@ -9,9 +9,19 @@ void menu(){
     printf("1 - Listar Mobilidade Eletrica\n");
     printf("2 - Listar Clientes\n");
     printf("3 - Listar Gestores\n");
-    printf("4 - Adicionar Cliente\n");
+    printf("4 - Gestao Clientes\n");
     printf("0 - Sair\n");
     printf("Digite a opcao desejada: ");
+}
+
+void GestaoClientes(){
+    printf("\nMenu Gestao Clientes:\n");
+    printf("1 - Adicionar Cliente\n");
+    printf("2 - Alterar Cliente\n");
+    printf("3 - Remover Cliente\n");
+    printf("0 - Sair\n");
+    printf("Digite a opcao desejada: ");
+
 }
 
 int main(void) {
@@ -49,6 +59,7 @@ int main(void) {
     }
 
     int opcao;
+    int OpcaoGestaoCliente;
     do{
         menu();
         scanf("%d", &opcao);
@@ -79,25 +90,88 @@ int main(void) {
                 break;
 
             case 4:
-                system("cls");
-                AdicionarCliente(&clientes, &numClientes);
-                // Abrir o arquivo binário em modo de escrita
-                arquivo = fopen("clientes.bin", "wb");
-                if (arquivo == NULL) {
-                    printf("Erro ao abrir o arquivo");
-                    exit(1);
-                }
+                do{
+                    system("cls");
+                    GestaoClientes();
+                    scanf("%d", &OpcaoGestaoCliente);
+                    getchar(); // Limpar o buffer do teclado
 
-                // Gravar o array "clientes" no arquivo binário
-                fwrite(clientes, sizeof(Cliente), numClientes, arquivo);
+                    switch (OpcaoGestaoCliente){
+                        case 1:
+                            system("cls");
+                            AdicionarCliente(&clientes, &numClientes);
+                            // Abrir o arquivo binário em modo de escrita
+                            arquivo = fopen("clientes.bin", "wb");
+                            if (arquivo == NULL) {
+                                printf("Erro ao abrir o arquivo");
+                                exit(1);
+                            }
 
-                // Fechar o arquivo
-                fclose(arquivo);
-                break;
+                            // Gravar o array "clientes" no arquivo binário
+                            fwrite(clientes, sizeof(Cliente), numClientes, arquivo);
 
+                            // Fechar o arquivo
+                            fclose(arquivo);
+                            break;
+                        case 3:
+                            system("cls");
+                            printf("\n\nClientes:\n");
+                            for (int i = 0; i < numClientes; i++) {
+                                printf("ID: %d\n", clientes[i].id);
+                                printf("Nome: %s\n", clientes[i].nome);
+                                printf("Email: %s\n", clientes[i].email);
+                                printf("Saldo: %.2f\n\n", clientes[i].saldo);
+                                }
+                                // Remover um cliente do array "clientes"
+                                printf("Digite o ID do cliente que deseja remover: ");
+                                int idRemover;
+                                scanf("%d", &idRemover);
+                                int indiceRemover = -1;
+                                for (int i = 0; i < numClientes; i++) {
+                                    if (clientes[i].id == idRemover) {
+                                        indiceRemover = i;
+                                        break;
+                                    }
+                                }
+                                if (indiceRemover != -1) {
+                                    for (int i = indiceRemover; i < numClientes - 1; i++) {
+                                        clientes[i] = clientes[i + 1];
+                                    }
+                                    numClientes--;
+
+                                    // Abrir o arquivo binário em modo de escrita
+                                    arquivo = fopen("clientes.bin", "wb");
+                                    if (arquivo == NULL) {
+                                        printf("Erro ao abrir o arquivo");
+                                        exit(1);
+                                    }
+
+                                    // Gravar o novo array "clientes" no arquivo binário
+                                    fwrite(clientes, sizeof(Cliente), numClientes, arquivo);
+
+                                    // Fechar o arquivo
+                                    fclose(arquivo);
+
+                                    printf("\nCliente removido com sucesso!\n");
+                                } else {
+                                    printf("\nCliente nao encontrado!\n");
+                                }
+                            break;
+                        case 0:
+                            system("cls");
+                            break;
+
+                    default:
+                        printf("\n\nOpcao invalida! Tente novamente.\n");
+                        break;
+                    }
+
+                }while (OpcaoGestaoCliente != 0);
+               
+                
+              break;
             case 0:
                 system("cls");
-                printf("Saindo...\n");
                 break;
 
             default:
@@ -112,3 +186,7 @@ int main(void) {
 
     return 0;
 }
+
+/*
+  
+*/
