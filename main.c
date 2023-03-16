@@ -22,6 +22,32 @@ int main(void) {
     Cliente *clientes = NULL;
     int numClientes= 0;
 
+       // Abrir o arquivo binário em modo de leitura
+    FILE *arquivo = fopen("clientes.bin", "rb");
+    if (arquivo != NULL) {
+        // Obter o número de elementos no arquivo binário
+        fseek(arquivo, 0, SEEK_END);
+        long tamanhoArquivo = ftell(arquivo);
+        rewind(arquivo);
+        int numElementos = tamanhoArquivo / sizeof(Cliente);
+
+        // Alocar memória para o array "clientes"
+        clientes = (Cliente*) malloc(numElementos * sizeof(Cliente));
+        if (clientes == NULL) {
+            printf("Erro ao alocar memoria");
+            exit(1);
+        }
+
+        // Ler o array "clientes" do arquivo binário
+        fread(clientes, sizeof(Cliente), numElementos, arquivo);
+
+        // Fechar o arquivo
+        fclose(arquivo);
+
+        // Atualizar o número de clientes
+        numClientes = numElementos;
+    }
+
     int opcao;
     do{
         menu();
@@ -55,6 +81,18 @@ int main(void) {
             case 4:
                 system("cls");
                 AdicionarCliente(&clientes, &numClientes);
+                // Abrir o arquivo binário em modo de escrita
+                arquivo = fopen("clientes.bin", "wb");
+                if (arquivo == NULL) {
+                    printf("Erro ao abrir o arquivo");
+                    exit(1);
+                }
+
+                // Gravar o array "clientes" no arquivo binário
+                fwrite(clientes, sizeof(Cliente), numClientes, arquivo);
+
+                // Fechar o arquivo
+                fclose(arquivo);
                 break;
 
             case 0:
