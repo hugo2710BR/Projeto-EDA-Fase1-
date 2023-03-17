@@ -223,6 +223,51 @@ int master(void) {
                             // Fechar o arquivo
                             fclose(arquivoCliente);
                             break;
+                        case 2:
+                            system("cls");
+                            printf("\n\nClientes:\n");
+                            for (int i = 0; i < numClientes; i++) {
+                                printf("ID: %d\nNome: %s\nEmail: %s\nSaldo: %.2f\n\n",
+                                    clientes[i].id, clientes[i].nome, clientes[i].email, clientes[i].saldo);
+                            }
+                            // Alterar um cliente do array "clientes"
+                            printf("Digite o ID do cliente que deseja alterar: ");
+                            int idAlterar;
+                            scanf("%d", &idAlterar);
+                            int indiceAlterar = -1;
+                            for (int i = 0; i < numClientes; i++) {
+                                if (clientes[i].id == idAlterar) {
+                                    indiceAlterar = i;
+                                    break;
+                                }
+                            }
+                            if (indiceAlterar != -1) {
+                                printf("\nDigite o novo nome do cliente: ");
+                                scanf("%s", &clientes[indiceAlterar].nome);
+                                printf("\nDigite o novo email do cliente: ");
+                                scanf("%s", &clientes[indiceAlterar].email);
+                                printf("\nDigite o novo saldo do cliente: ");
+                                scanf("%f", &clientes[indiceAlterar].saldo);
+                                getchar(); //
+
+                                // Abrir o arquivo binário em modo de escrita
+                                arquivoCliente = fopen("clientes.bin", "wb");
+                                if (arquivoCliente == NULL) {
+                                    printf("Erro ao abrir o arquivo");
+                                    exit(1);
+                                }
+
+                                // Gravar o novo array "clientes" no arquivo binário
+                                fwrite(clientes, sizeof(Cliente), numClientes, arquivoCliente);
+
+                                // Fechar o arquivo
+                                fclose(arquivoCliente);
+
+                                printf("\nCliente alterado com sucesso!\n");
+                            } else {
+                                printf("\nCliente nao encontrado!\n");
+                            }
+                        break;
                         case 3:
                             system("cls");
                             printf("\n\nClientes:\n");
@@ -268,9 +313,9 @@ int master(void) {
                                 }
                             break;
 
-                        case 0:
-                            system("cls");
-                            break;
+                    case 0:
+                        system("cls");
+                    break;
 
                     default:
                         printf("\n\nOpcao invalida! Tente novamente.\n");
@@ -278,7 +323,7 @@ int master(void) {
                     }
 
                 }while (OpcaoGestaoCliente != 0);
-               
+            break;
             case 5:
                 do{
                     system("cls");
