@@ -348,11 +348,58 @@ int master(void) {
                             // Fechar o arquivo
                             fclose(arquivoGestor);
                             break;
+
+                        case 2:
+                            system("cls");
+                            printf("\n\nGestores:\n");
+                            for (int i = 0; i < numGestores; i++) {
+                                printf("ID: %d\nNome: %s\nSenha: %s\nEmail: %s\n\n",
+                                    gestores[i].id, gestores[i].nome, gestores[i].senha, gestores[i].email);
+                            }
+                            // Alterar um Gestor do array "clientes"
+                            printf("Digite o ID do gestor que deseja alterar: ");
+                            int idAlterar;
+                            scanf("%d", &idAlterar);
+                            int indiceAlterar = -1;
+                            for (int i = 0; i < numGestores; i++) {
+                                if (gestores[i].id == idAlterar) {
+                                    indiceAlterar = i;
+                                    break;
+                                }
+                            }
+                            if (indiceAlterar != -1) {
+                                printf("\nDigite o novo nome do gestor: ");
+                                scanf("%s", &gestores[indiceAlterar].nome);
+                                printf("\nDigite a nova senha do gestor: ");
+                                scanf("%s", &gestores[indiceAlterar].senha);
+                                printf("\nDigite o novo email do gestor: ");
+                                scanf("%s", &gestores[indiceAlterar].email);
+                                getchar(); //
+
+                                // Abrir o arquivo binário em modo de escrita
+                                arquivoGestor = fopen("gestores.bin", "wb");
+                                if (arquivoGestor == NULL) {
+                                    printf("Erro ao abrir o arquivo");
+                                    exit(1);
+                                }
+
+                                // Gravar o novo array "gestores" no arquivo binário
+                                fwrite(gestores, sizeof(Gestor), numGestores, arquivoGestor);
+
+                                // Fechar o arquivo
+                                fclose(arquivoGestor);
+
+                                printf("\nGestor alterado com sucesso!\n");
+                            } else {
+                                printf("\nGestor nao encontrado!\n");
+                            }
+                            break;
+
                         case 3:
                             system("cls");
                             printf("\n\nGestores:\n");
                             for (int i = 0; i < numGestores; i++) {
-                                printf("ID: %d\n", gestores[i].id);
+                                printf("\nID: %d\n", gestores[i].id);
                                 printf("Nome: %s\n", gestores[i].nome);
                                 printf("Senha: %s\n", gestores[i].senha);
                                 printf("Email: %s\n", gestores[i].email);
@@ -429,6 +476,55 @@ int master(void) {
                             // Fechar o arquivo
                             fclose(arquivoMobilidade);
                             break;
+
+                        case 2:
+                            system("cls");
+                            printf("\n\nMobilidade:\n");
+                            for (int i = 0; i < numVeiculos; i++) {
+                                printf("ID: %d\nTipo: %s\nLocalizacao: %s\nbateria: %d\nPreco: %f\n\n",
+                                    veiculos[i].id, veiculos[i].tipo, veiculos[i].localizacao, veiculos[i].bateria, veiculos[i].preco);
+                            }
+                            // Alterar um Meio do array "veiculos"
+                            printf("Digite o ID do veiculo que deseja alterar: ");
+                            int idAlterar;
+                            scanf("%d", &idAlterar);
+                            int indiceAlterar = -1;
+                            for (int i = 0; i < numVeiculos; i++) {
+                                if (veiculos[i].id == idAlterar) {
+                                    indiceAlterar = i;
+                                    break;
+                                }
+                            }
+                            if (indiceAlterar != -1) {
+                                printf("\nDigite o novo tipo do veiculo: ");
+                                scanf("%s", &veiculos[indiceAlterar].tipo);
+                                printf("\nDigite a nova localizacao do veiculo: ");
+                                scanf("%s", &veiculos[indiceAlterar].localizacao);
+                                printf("\nDigite a percentagem de bateria do veiculo: ");
+                                scanf("%d", &veiculos[indiceAlterar].bateria);
+                                printf("\nDigite o preco do veiculo: ");
+                                scanf("%f", &veiculos[indiceAlterar].preco);
+                                getchar(); //
+
+                                // Abrir o arquivo binário em modo de escrita
+                                arquivoMobilidade = fopen("mobilidade.bin", "wb");
+                                if (arquivoMobilidade == NULL) {
+                                    printf("Erro ao abrir o arquivo");
+                                    exit(1);
+                                }
+
+                                // Gravar o novo array "gestores" no arquivo binário
+                                fwrite(veiculos, sizeof(MobilidadeEletrica), numVeiculos, arquivoMobilidade);
+
+                                // Fechar o arquivo
+                                fclose(arquivoMobilidade);
+
+                                printf("\nMeio alterado com sucesso!\n");
+                            } else {
+                                printf("\nMeio nao encontrado!\n");
+                            }
+                            break;
+
                         case 3:
                             system("cls");
                             printf("\n\nMobilidade:\n");
