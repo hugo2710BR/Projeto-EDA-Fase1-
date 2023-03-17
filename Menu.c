@@ -12,6 +12,7 @@ void menu(){
     printf("3 - Listar Gestores\n");
     printf("4 - Gestao Clientes\n");
     printf("5 - Gestao Gestores\n");
+    printf("6 - Gestao Mobilidade\n");
     printf("0 - Sair\n");
     printf("Digite a opcao desejada: ");
 }
@@ -36,33 +37,29 @@ void GestaoGestores(){
 
 }
 
+void GestaoMobilidade(){
+    printf("\nMenu Gestao Veiculo:\n");
+    printf("1 - Adicionar Veiculo\n");
+    printf("2 - Alterar Veiculo\n");
+    printf("3 - Remover Veiculo\n");
+    printf("0 - Sair\n");
+    printf("Digite a opcao desejada: ");
+
+}
+
 int master(void) {
+    
     MobilidadeEletrica* mobilidadeFixa = CriarMobilidadeEletricaFixa();
     Cliente* clienteFixo = CriarClienteFixo();
     Gestor* gestorFixo = CriarGestorFixo();
 
+    MobilidadeEletrica *veiculos = NULL;
     Cliente *clientes = NULL;
     Gestor *gestores = NULL;
-
+    
+    int numVeiculos= 0;
     int numClientes= 0;
     int numGestores= 0;
-
-void imprimirMobilidadeEletrica(MobilidadeEletrica *mobilidadeFixa) {
-    printf("\n\nMobilidade Eletrica Fixa:\nID: %d\nTipo: %s\nEstado: %s\nLocalizacao: %s\nBateria: %d%%\nPreco: %.2f\n\n",
-            mobilidadeFixa->id, mobilidadeFixa->tipo, mobilidadeFixa->estado, mobilidadeFixa->localizacao, mobilidadeFixa->bateria, mobilidadeFixa->preco);
-}
-
-void ImprimirCliente(Cliente *clientefixo){
-    printf("\n\nClientes:\n");
-        printf("ID: %d\nNome: %s\nEmail: %s\nSaldo: %.2f\n\n",
-                clienteFixo->id, clienteFixo->nome, clienteFixo->email, clienteFixo->saldo);
-    for (int i = 0; i < numClientes; i++) {
-        printf("ID: %d\nNome: %s\nEmail: %s\nSaldo: %.2f\n\n",
-                clientes[i].id, clientes[i].nome, clientes[i].email, clientes[i].saldo);
-                
-    }   
-    
-}
 
     // Abrir o arquivo binário de clientes em modo de leitura
     FILE *arquivoCliente = fopen("clientes.bin", "rb");
@@ -89,8 +86,6 @@ void ImprimirCliente(Cliente *clientefixo){
         // Atualizar o número de clientes
         numClientes = numElementosCliente;
       
-
-        
     }
 
     // Abrir o arquivo binário de gestores em modo de leitura
@@ -117,14 +112,72 @@ void ImprimirCliente(Cliente *clientefixo){
 
         // Atualizar o número de clientes
         numGestores = numElementosGestor;
-      
 
-        
+    }
+
+     // Abrir o arquivo binário de Mobilidade em modo de leitura
+    FILE *arquivoMobilidade = fopen("mobilidade.bin", "rb");
+    if (arquivoMobilidade != NULL) {
+        // Obter o número de elementos no arquivo binário
+        fseek(arquivoMobilidade, 0, SEEK_END);
+        long tamanhoArquivoMobilidade = ftell(arquivoMobilidade);
+        rewind(arquivoMobilidade);
+        int numElementosMobilidade = tamanhoArquivoMobilidade / sizeof(MobilidadeEletrica);
+
+        // Alocar memória para o array "clientes"
+        veiculos = (MobilidadeEletrica*) malloc(numElementosMobilidade * sizeof(MobilidadeEletrica));
+        if (veiculos == NULL) {
+            printf("Erro ao alocar memoria");
+            exit(1);
+        }
+
+        // Ler o array "clientes" do arquivo binário
+        fread(veiculos, sizeof(MobilidadeEletrica), numElementosMobilidade, arquivoMobilidade);
+
+        // Fechar o arquivo
+        fclose(arquivoMobilidade);
+
+        // Atualizar o número de clientes
+        numVeiculos = numElementosMobilidade;
+      
     }
 
     int opcao;
     int OpcaoGestaoCliente;
     int OpcaoGestaoGestor;
+    int OpcaoGestaoMobilidade;
+
+    void ImprimirCliente(Cliente *clientefixo){
+        printf("\n\nClientes:\n");
+            printf("ID: %d\nNome: %s\nEmail: %s\nSaldo: %.2f\n\n",
+                    clienteFixo->id, clienteFixo->nome, clienteFixo->email, clienteFixo->saldo);
+        for (int i = 0; i < numClientes; i++) {
+            printf("ID: %d\nNome: %s\nEmail: %s\nSaldo: %.2f\n\n",
+                    clientes[i].id, clientes[i].nome, clientes[i].email, clientes[i].saldo);
+                    
+        }   
+        
+    }
+
+    void ImprimirGestor(Gestor *gestorFixo){
+        printf("\n\nGestores:\n");
+        printf("ID: %d\nNome: %s\nEmail: %s\nSenha: %s\n\n",
+                gestorFixo->id, gestorFixo->nome, gestorFixo->email, gestorFixo->senha);
+        for (int i = 0; i < numGestores; i++) {
+            printf("ID: %d\nNome: %s\nSenha: %s\nEmail: %s\n\n",
+                gestores[i].id, gestores[i].nome, gestores[i].senha, gestores[i].email);
+        } 
+        
+    }
+
+    void imprimirMobilidadeEletrica(MobilidadeEletrica *mobilidadeFixa) {
+        printf("\n\nMobilidade Eletrica Fixa:\nID: %d\nTipo: %s\nEstado: %s\nLocalizacao: %s\nBateria: %d%%\nPreco: %.2f\n\n",
+                mobilidadeFixa->id, mobilidadeFixa->tipo, mobilidadeFixa->estado, mobilidadeFixa->localizacao, mobilidadeFixa->bateria, mobilidadeFixa->preco);
+        for (int i = 0; i < numVeiculos; i++) {
+            printf("ID: %d\nTipo: %s\nEstado: %s\nLocalizacao: %s\nBateria: %d%%\nPreco: %.2f\n\n",
+                veiculos[i].id, veiculos[i].tipo, veiculos[i].estado, veiculos[i].localizacao, veiculos[i].bateria, veiculos[i].preco);
+        }         
+    }
 
     do{
         menu();
@@ -144,12 +197,7 @@ void ImprimirCliente(Cliente *clientefixo){
 
             case 3:
                 system("cls");
-                printf("\n\nGestor Fixo:\nID: %d\nNome: %s\nEmail: %s\nSenha: %s\n\n",
-                    gestorFixo->id, gestorFixo->nome, gestorFixo->email, gestorFixo->senha);
-                for (int i = 0; i < numGestores; i++) {
-                    printf("ID: %d\nNome: %s\nSenha: %s\nEmail: %s\n\n",
-                       gestores[i].id, gestores[i].nome, gestores[i].senha, gestores[i].email);
-                }
+                ImprimirGestor(gestorFixo);
                 break;
             case 4:
                 do{
@@ -312,6 +360,88 @@ void ImprimirCliente(Cliente *clientefixo){
                 }while (OpcaoGestaoGestor != 0);
 
               break;
+            case 6:
+                do{
+                    system("cls");
+                    GestaoMobilidade();
+                    scanf("%d", &OpcaoGestaoMobilidade);
+                    getchar(); // Limpar o buffer do teclado
+
+                    switch (OpcaoGestaoMobilidade){
+                        case 1:
+                            system("cls");
+                            AdicionarMobilidadeEletrica(&veiculos, &numVeiculos);
+                            // Abrir o arquivo binário em modo de escrita
+                            arquivoMobilidade = fopen("mobilidade.bin", "wb");
+                            if (arquivoMobilidade == NULL) {
+                                printf("Erro ao abrir o arquivo");
+                                exit(1);
+                            }
+
+                            // Gravar o array "clientes" no arquivo binário
+                            fwrite(veiculos, sizeof(MobilidadeEletrica), numVeiculos, arquivoMobilidade);
+
+                            // Fechar o arquivo
+                            fclose(arquivoMobilidade);
+                            break;
+                        case 3:
+                            system("cls");
+                            printf("\n\nMobilidade:\n");
+                            for (int i = 0; i < numVeiculos; i++) {
+                                printf("ID: %d\n", veiculos[i].id);
+                                printf("Tipo: %s\n", veiculos[i].tipo);
+                                printf("Estado: %s\n", veiculos[i].estado);
+                                printf("Localizacao: %s\n", veiculos[i].localizacao);
+                                printf("Bateria: %d\n", veiculos[i].bateria);
+                                printf("Preco: %.2f\n", veiculos[i].preco);
+                                }
+                                // Remover um cliente do array "gestores"
+                                printf("\nDigite o ID do veiculo que deseja remover: ");
+                                int idRemover;
+                                scanf("%d", &idRemover);
+                                int indiceRemover = -1;
+                                for (int i = 0; i < numVeiculos; i++) {
+                                    if (veiculos[i].id == idRemover) {
+                                        indiceRemover = i;
+                                        break;
+                                    }
+                                }
+                                if (indiceRemover != -1) {
+                                    for (int i = indiceRemover; i < numVeiculos - 1; i++) {
+                                        veiculos[i] = veiculos[i + 1];
+                                    }
+                                    numVeiculos--;
+
+                                    // Abrir o arquivo binário em modo de escrita
+                                    arquivoMobilidade = fopen("mobilidade.bin", "wb");
+                                    if (arquivoMobilidade == NULL) {
+                                        printf("Erro ao abrir o arquivo");
+                                        exit(1);
+                                    }
+
+                                    // Gravar o novo array "clientes" no arquivo binário
+                                    fwrite(veiculos, sizeof(MobilidadeEletrica), numVeiculos, arquivoMobilidade);
+
+                                    // Fechar o arquivo
+                                    fclose(arquivoMobilidade);
+
+                                    printf("\nMeio removido com sucesso!\n");
+                                } else {
+                                    printf("\nMeio nao encontrado!\n");
+                                }
+                            break;
+
+                        case 0:
+                            system("cls");
+                            break;
+
+                    default:
+                        printf("\n\nOpcao invalida! Tente novamente.\n");
+                        break;
+                    }
+
+                }while (OpcaoGestaoMobilidade != 0);
+            break;
             case 0:
                 system("cls");
                 break;

@@ -12,6 +12,7 @@ struct Gestor {
 
 Gestor* CriarGestor(int id, char* nome, char* email, char* senha);
 Gestor* CriarGestorFixo(void);
+void AdicionarGestor(Gestor** gestores, int *numGestores);
 
 #endif /* GESTOR_H */
 

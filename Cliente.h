@@ -15,6 +15,7 @@ struct Cliente {
 
 Cliente* CriarCliente(int id, char* nome, char* email, float saldo);
 Cliente* CriarClienteFixo(void);
+void AdicionarCliente(Cliente** clientes, int *numClientes);
 
 #endif /* CLIENTE_H */
 
