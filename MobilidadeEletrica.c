@@ -3,6 +3,19 @@
 #include <string.h>
 #include "MobilidadeEletrica.h"
 
+/**
+ * @brief Ficheiro .c com as funções CriarMobilidadeEletrica, CriarMobilidadeEletricaFixa e AdicionarMobilidadeEletrica
+ * 
+ * @param[out] id 
+ * @param[out] tipo 
+ * @param[out] estado 
+ * @param[out] localizacao 
+ * @param[out] autonomia 
+ * @param[out] bateria 
+ * @param[out] preco 
+ * @return  
+ */
+
 MobilidadeEletrica* CriarMobilidadeEletrica(int id, char* tipo, char* estado, char* localizacao, char* autonomia, double bateria, float preco) {
     MobilidadeEletrica* novoMeio = (MobilidadeEletrica*) malloc(sizeof(MobilidadeEletrica));
     novoMeio->id = id;

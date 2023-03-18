@@ -1,15 +1,17 @@
 #ifndef CLIENTE_H
 #define CLIENTE_H
 
-typedef struct Cliente Cliente;
-
-struct Cliente {
+/**
+ * @brief Ficheiro para declarar as funções e struct utilizados no ficheiro .c
+ * 
+ */
+typedef struct {
     int id;
     char nome[50];
     char email[50];
     float saldo;
    
-};
+}Cliente;
 
 Cliente* CriarCliente(int id, char* nome, char* email, float saldo);
 Cliente* CriarClienteFixo(void);

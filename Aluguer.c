@@ -1,6 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Aluguer.h"
+/**
+ * @brief Atribui um aluguer com os dados do cliente e do veiculo criado e guardado no ficheiro binario
+ * 
+ * @param[out] clientes 
+ * @param[out] numClientes 
+ * @param[out] veiculos 
+ * @param[out] numVeiculos 
+ */
 
 void atribuirAluguer(Cliente *clientes, int numClientes, MobilidadeEletrica *veiculos, int numVeiculos) {
     int idCliente, idVeiculo;

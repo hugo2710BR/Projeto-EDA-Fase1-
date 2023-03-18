@@ -6,6 +6,12 @@
 #include "menu.h"
 #include "Aluguer.h"
 
+/**
+ * @brief Ficheiro Main
+ * 
+ * @return int 0 
+ */
+
 int main(void) {
     master();
     return 0;

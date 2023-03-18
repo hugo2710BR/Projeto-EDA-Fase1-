@@ -3,6 +3,14 @@
 #include <string.h>
 #include "Gestor.h"
 
+/**
+ * @brief Ficheiro que contem funções CriarGestor, CriarGestorFixo e AdiconarGestor
+ * 
+ * @param[out] id 
+ * @param[out] nome 
+ * @param[out] email 
+ * @param[out] senha 
+ */
 Gestor* CriarGestor(int id, char* nome, char* email, char* senha) {
     Gestor* novoGestor = (Gestor*) malloc(sizeof(Gestor));
     novoGestor->id = id;

@@ -2,16 +2,21 @@
 #define ALUGUER_H
 
 #include <stdbool.h>
-#include "Cliente.h" // Inclua o arquivo de cabeçalho do Cliente aqui
-#include "MobilidadeEletrica.h" // Inclua o arquivo de cabeçalho do MobilidadeEletrica aqui
+#include "Cliente.h" 
+#include "MobilidadeEletrica.h"
+
+/**
+ * @brief Ficheiro para declarar struct e funções que serão usados no ficheiro .c
+ * 
+ */
 
 typedef struct {
     int idCliente;
     int idVeiculo;
-    char dataInicio[11]; // Formato de data AAAA-MM-DD + caractere nulo
-    char dataTermino[11]; // Formato de data AAAA-MM-DD + caractere nulo
-    double preco; // Preço total do aluguer
-    bool aluguerAtivo; // Indica se o aluguer está ativo ou não
+    char dataInicio[11]; 
+    char dataTermino[11];
+    double preco; 
+    bool aluguerAtivo; 
 } Aluguer;
 
 void atribuirAluguer(Cliente *clientes, int numClientes, MobilidadeEletrica *veiculos, int numVeiculos);

@@ -7,10 +7,19 @@
 #include "Gestor.h"
 #include "Aluguer.h"
 
-    int numVeiculos= 0;
-    int numClientes= 0;
-    int numGestores= 0;
+/**
+ * @brief Ficheiro Menu.c que será responsável por exportar todas as funções dos Gestores, Cliente, Mobilidade, 
+ * Listagem dos mesmos, Criação de Aluguer e listagem do mesmo.
+ * 
+ * 
+ */
 
+//Declaração de Variáveis constantes
+int numVeiculos= 0;
+int numClientes= 0;
+int numGestores= 0;
+
+//Função para imprimir o Menu
 void menu(){
     printf("\nMENU:\n");
     printf("1 - Listar Mobilidade Eletrica\n");
@@ -25,6 +34,7 @@ void menu(){
     printf("Digite a opcao desejada: ");
 }
 
+//Função para imprimir o menu de gestão clientes
 void GestaoClientes(){
     printf("\nMenu Gestao Clientes:\n");
     printf("1 - Adicionar Cliente\n");
@@ -35,6 +45,7 @@ void GestaoClientes(){
 
 }
 
+//Função para imprimir o menu de gestão gestores
 void GestaoGestores(){
     printf("\nMenu Gestao Gestores:\n");
     printf("1 - Adicionar Gestor\n");
@@ -45,6 +56,7 @@ void GestaoGestores(){
 
 }
 
+//Função para imprimir o menu de gestão de mobilidade
 void GestaoMobilidade(){
     printf("\nMenu Gestao Veiculo:\n");
     printf("1 - Adicionar Veiculo\n");
@@ -55,27 +67,23 @@ void GestaoMobilidade(){
 
 }
 
-  int compare(const void *a, const void *b) {
-    MobilidadeEletrica *elem1 = (MobilidadeEletrica *)a;
-    MobilidadeEletrica *elem2 = (MobilidadeEletrica *)b;
-    return (elem2->autonomia - elem1->autonomia);
-    } 
-
+//Função Master que irá imprimir e inicializar o programa
 int master(void) {
     
+    //Declaração de pointers para fins de dados fixos
     MobilidadeEletrica* mobilidadeFixa = CriarMobilidadeEletricaFixa();
     Cliente* clienteFixo = CriarClienteFixo();
     Gestor* gestorFixo = CriarGestorFixo();
 
+    //Declaração de pointers para dados binários
     MobilidadeEletrica *veiculos = NULL;
     Cliente *clientes = NULL;
     Gestor *gestores = NULL;
     
-  
-
     // Abrir o arquivo binário de clientes em modo de leitura
     FILE *arquivoCliente = fopen("clientes.bin", "rb");
     if (arquivoCliente != NULL) {
+
         // Obter o número de elementos no arquivo binário
         fseek(arquivoCliente, 0, SEEK_END);
         long tamanhoArquivoCliente = ftell(arquivoCliente);
@@ -109,14 +117,14 @@ int master(void) {
         rewind(arquivoGestor);
         int numElementosGestor = tamanhoArquivoGestor / sizeof(Gestor);
 
-        // Alocar memória para o array "clientes"
+        // Alocar memória para o array "gestores"
         gestores = (Gestor*) malloc(numElementosGestor * sizeof(Gestor));
         if (gestores == NULL) {
             printf("Erro ao alocar memoria");
             exit(1);
         }
 
-        // Ler o array "clientes" do arquivo binário
+        // Ler o array "gestores" do arquivo binário
         fread(gestores, sizeof(Gestor), numElementosGestor, arquivoGestor);
 
         // Fechar o arquivo
@@ -136,32 +144,31 @@ int master(void) {
         rewind(arquivoMobilidade);
         int numElementosMobilidade = tamanhoArquivoMobilidade / sizeof(MobilidadeEletrica);
 
-        // Alocar memória para o array "clientes"
+        // Alocar memória para o array "Mobilidade"
         veiculos = (MobilidadeEletrica*) malloc(numElementosMobilidade * sizeof(MobilidadeEletrica));
         if (veiculos == NULL) {
             printf("Erro ao alocar memoria");
             exit(1);
         }
 
-        // Ler o array "clientes" do arquivo binário
+        // Ler o array "Mobilidade" do arquivo binário
         fread(veiculos, sizeof(MobilidadeEletrica), numElementosMobilidade, arquivoMobilidade);
 
         // Fechar o arquivo
         fclose(arquivoMobilidade);
 
-        // Ordenar os dados em ordem decrescente de autonomia
-        qsort(veiculos, numElementosMobilidade, sizeof(MobilidadeEletrica), compare);
-
-        // Atualizar o número de clientes
+        // Atualizar o número de Mobilidade
         numVeiculos = numElementosMobilidade;
       
     }
 
+    //Declaração de variáveis para o switch case
     int opcao;
     int OpcaoGestaoCliente;
     int OpcaoGestaoGestor;
     int OpcaoGestaoMobilidade;
 
+    //Função para imprimir a listagem de clientes com dados fixos e do ficheiro binário
     void ImprimirCliente(Cliente *clientefixo){
         printf("\n\nClientes:\n");
             printf("ID: %d\nNome: %s\nEmail: %s\nSaldo: %.2f\n\n",
@@ -174,6 +181,7 @@ int master(void) {
         
     }
 
+    //Função para imprimir a listagem de gestores com dados fixos e do ficheiro binário
     void ImprimirGestor(Gestor *gestorFixo){
         printf("\n\nGestores:\n");
         printf("ID: %d\nNome: %s\nEmail: %s\nSenha: %s\n\n",
@@ -185,13 +193,13 @@ int master(void) {
         
     }
 
+    //Função para imprimir a listagem de Mobilidade com dados fixos e do ficheiro binário
     void imprimirMobilidadeEletrica(MobilidadeEletrica *mobilidadeFixa) {
+        int i, j;
         printf("\n\nMobilidade Eletrica:\nID: %d\nTipo: %s\nEstado: %s\nLocalizacao: %s\nAutonomia: %s\nBateria: %d\nPreco: %.2f\n\n",
                 mobilidadeFixa->id, mobilidadeFixa->tipo, mobilidadeFixa->estado, mobilidadeFixa->localizacao, mobilidadeFixa->autonomia, mobilidadeFixa->bateria, mobilidadeFixa->preco);
-        
-        int i, j;
 
-        //Listar por ordem descrescente autonomia
+        //Listar por ordem descrescente a autonomia
         for (i = 0; i < numVeiculos - 1; i++){
             for (j = 0; j < numVeiculos - i - 1; j++){
                 if (veiculos[j].autonomia < veiculos[j + 1].autonomia){
@@ -212,26 +220,32 @@ int master(void) {
         }         
     }
 
+    //Ciclo para correr as funções e o programa até a opção escolhida ser "0"
     do{
         menu();
         scanf("%d", &opcao);
         getchar(); // Limpar o buffer do teclado
         
         switch(opcao){
+            //Inicialização da listagem de mobilidade
             case 1:
                 system("cls");
                 imprimirMobilidadeEletrica(mobilidadeFixa);
                 break;
 
+            //Inicialização da listagem de clientes
             case 2:
                 system("cls");
                 ImprimirCliente(clienteFixo);
                 break;
 
+            //Inicialização da listagem de gestores
             case 3:
                 system("cls");
                 ImprimirGestor(gestorFixo);
                 break;
+
+            //Inicialização do menu Gestão clientes    
             case 4:
                 do{
                     system("cls");
@@ -240,6 +254,8 @@ int master(void) {
                     getchar(); // Limpar o buffer do teclado
 
                     switch (OpcaoGestaoCliente){
+
+                        //Adicionar Cliente ao ficheiro binário
                         case 1:
                             system("cls");
                             AdicionarCliente(&clientes, &numClientes);
@@ -256,6 +272,8 @@ int master(void) {
                             // Fechar o arquivo
                             fclose(arquivoCliente);
                             break;
+
+                        //Alterar cliente do ficheiro binário
                         case 2:
                             system("cls");
                             printf("\n\nClientes:\n");
@@ -300,7 +318,9 @@ int master(void) {
                             } else {
                                 printf("\nCliente nao encontrado!\n");
                             }
-                        break;
+                            break;
+
+                        //Remover cliente do ficheiro binário
                         case 3:
                             system("cls");
                             printf("\n\nClientes:\n");
@@ -345,18 +365,21 @@ int master(void) {
                                     printf("\nCliente nao encontrado!\n");
                                 }
                             break;
-
+                    //Retroceder
                     case 0:
                         system("cls");
                     break;
 
+                    //Digito não permitido ou inexistente
                     default:
                         printf("\n\nOpcao invalida! Tente novamente.\n");
                         break;
                     }
 
                 }while (OpcaoGestaoCliente != 0);
-            break;
+                break;
+            
+            //Inicialização do menu Gestão gestores    
             case 5:
                 do{
                     system("cls");
@@ -365,6 +388,8 @@ int master(void) {
                     getchar(); // Limpar o buffer do teclado
 
                     switch (OpcaoGestaoGestor){
+
+                        //Adicionar gestor
                         case 1:
                             system("cls");
                             AdicionarGestor(&gestores, &numGestores);
@@ -382,6 +407,7 @@ int master(void) {
                             fclose(arquivoGestor);
                             break;
 
+                        //Alterar Gestor
                         case 2:
                             system("cls");
                             printf("\n\nGestores:\n");
@@ -428,6 +454,7 @@ int master(void) {
                             }
                             break;
 
+                        //Remover Gestor
                         case 3:
                             system("cls");
                             printf("\n\nGestores:\n");
@@ -473,10 +500,12 @@ int master(void) {
                                 }
                             break;
 
+                        //Retroceder
                         case 0:
                             system("cls");
                             break;
-
+                    
+                    //Digito inserido inexistente
                     default:
                         printf("\n\nOpcao invalida! Tente novamente.\n");
                         break;
@@ -485,6 +514,8 @@ int master(void) {
                 }while (OpcaoGestaoGestor != 0);
 
               break;
+            
+            //Inicialização do menu Gestão Mobilidade    
             case 6:
                 do{
                     system("cls");
@@ -492,7 +523,9 @@ int master(void) {
                     scanf("%d", &OpcaoGestaoMobilidade);
                     getchar(); // Limpar o buffer do teclado
 
-                    switch (OpcaoGestaoMobilidade){
+                    switch (OpcaoGestaoMobilidade){ 
+
+                        //Adicionar Meio
                         case 1:
                             system("cls");
                             AdicionarMobilidadeEletrica(&veiculos, &numVeiculos);
@@ -510,6 +543,7 @@ int master(void) {
                             fclose(arquivoMobilidade);
                             break;
 
+                        //Alterar Meio
                         case 2:
                             system("cls");
                             printf("\n\nMobilidade:\n");
@@ -560,6 +594,7 @@ int master(void) {
                             }
                             break;
 
+                        //Remover Meio
                         case 3:
                             system("cls");
                             printf("\n\nMobilidade:\n");
@@ -608,6 +643,7 @@ int master(void) {
                                 }
                             break;
 
+                        //Retroceder
                         case 0:
                             system("cls");
                             break;
@@ -618,15 +654,21 @@ int master(void) {
                     }
 
                 }while (OpcaoGestaoMobilidade != 0);
-            break;
+                break;
+
+            //Incialização da atribuição de alugueres
             case 7:
                 system("cls");
                 atribuirAluguer(clientes, numClientes, veiculos, numVeiculos);
-            break;
+                break;
+
+            //Incialização da listagem de alugueres
             case 8:
                 system("cls");
                 listarAlugueres();
                 break;
+
+            //retroceder
             case 0:
                 system("cls");
                 break;
@@ -635,11 +677,15 @@ int master(void) {
                 printf("\n\nOpcao invalida! Tente novamente.\n");
                 break;
             }
+
+    //Fechar Programa ou Ciclo
     }while(opcao != 0);
 
+    //Libertar memória allocada pelo malloc
     free(mobilidadeFixa);
     free(clienteFixo);
     free(gestorFixo);
 
+    //Retornar valor 0 se o programa funcionar
     return 0;
 }

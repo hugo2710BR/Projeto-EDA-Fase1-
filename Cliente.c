@@ -3,6 +3,15 @@
 #include <string.h>
 #include "Cliente.h"
 
+/**
+ * @brief Funções como CriarCliente, CriarClienteFixo, AdicionarCliente
+ * 
+ * @param[out] id 
+ * @param[out] nome 
+ * @param[out] email 
+ * @param[out] saldo 
+ */
+
 Cliente* CriarCliente(int id, char* nome, char* email, float saldo) {
     Cliente* novoCliente = (Cliente*) malloc(sizeof(Cliente));
     novoCliente->id = id;
