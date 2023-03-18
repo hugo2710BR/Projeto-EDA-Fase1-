@@ -47,6 +47,12 @@ void GestaoMobilidade(){
 
 }
 
+int compare(const void *a, const void *b) {
+    MobilidadeEletrica *elem1 = (MobilidadeEletrica *)a;
+    MobilidadeEletrica *elem2 = (MobilidadeEletrica *)b;
+    return (elem2->autonomia - elem1->autonomia);
+}
+
 int master(void) {
     
     MobilidadeEletrica* mobilidadeFixa = CriarMobilidadeEletricaFixa();
@@ -137,6 +143,9 @@ int master(void) {
         // Fechar o arquivo
         fclose(arquivoMobilidade);
 
+        // Ordenar os dados em ordem decrescente de autonomia
+        qsort(veiculos, numElementosMobilidade, sizeof(MobilidadeEletrica), compare);
+
         // Atualizar o número de clientes
         numVeiculos = numElementosMobilidade;
       
@@ -171,11 +180,11 @@ int master(void) {
     }
 
     void imprimirMobilidadeEletrica(MobilidadeEletrica *mobilidadeFixa) {
-        printf("\n\nMobilidade Eletrica Fixa:\nID: %d\nTipo: %s\nEstado: %s\nLocalizacao: %s\nBateria: %d%%\nPreco: %.2f\n\n",
-                mobilidadeFixa->id, mobilidadeFixa->tipo, mobilidadeFixa->estado, mobilidadeFixa->localizacao, mobilidadeFixa->bateria, mobilidadeFixa->preco);
+        printf("\n\nMobilidade Eletrica:\nID: %d\nTipo: %s\nEstado: %s\nLocalizacao: %s\nAutonomia: %s\nBateria: %d%%\nPreco: %.2f\n\n",
+                mobilidadeFixa->id, mobilidadeFixa->tipo, mobilidadeFixa->estado, mobilidadeFixa->localizacao, mobilidadeFixa->autonomia, mobilidadeFixa->bateria, mobilidadeFixa->preco);
         for (int i = 0; i < numVeiculos; i++) {
-            printf("ID: %d\nTipo: %s\nEstado: %s\nLocalizacao: %s\nBateria: %d%%\nPreco: %.2f\n\n",
-                veiculos[i].id, veiculos[i].tipo, veiculos[i].estado, veiculos[i].localizacao, veiculos[i].bateria, veiculos[i].preco);
+            printf("ID: %d\nTipo: %s\nEstado: %s\nLocalizacao: %s\nAutonomia: %s\nBateria: %d%%\nPreco: %.2f\n\n",
+                veiculos[i].id, veiculos[i].tipo, veiculos[i].estado, veiculos[i].localizacao, veiculos[i].autonomia, veiculos[i].bateria, veiculos[i].preco);
         }         
     }
 
@@ -481,8 +490,8 @@ int master(void) {
                             system("cls");
                             printf("\n\nMobilidade:\n");
                             for (int i = 0; i < numVeiculos; i++) {
-                                printf("ID: %d\nTipo: %s\nLocalizacao: %s\nbateria: %d\nPreco: %f\n\n",
-                                    veiculos[i].id, veiculos[i].tipo, veiculos[i].localizacao, veiculos[i].bateria, veiculos[i].preco);
+                                printf("ID: %d\nTipo: %s\nLocalizacao: %s\nAutonomia: %s\nbateria: %d\nPreco: %f\n\n",
+                                    veiculos[i].id, veiculos[i].tipo, veiculos[i].localizacao, veiculos[i].autonomia, veiculos[i].bateria, veiculos[i].preco);
                             }
                             // Alterar um Meio do array "veiculos"
                             printf("Digite o ID do veiculo que deseja alterar: ");
@@ -500,6 +509,8 @@ int master(void) {
                                 scanf("%s", &veiculos[indiceAlterar].tipo);
                                 printf("\nDigite a nova localizacao do veiculo: ");
                                 scanf("%s", &veiculos[indiceAlterar].localizacao);
+                                printf("\nDigite a autonomia do veiculo: ");
+                                scanf("%s", &veiculos[indiceAlterar].autonomia);
                                 printf("\nDigite a percentagem de bateria do veiculo: ");
                                 scanf("%d", &veiculos[indiceAlterar].bateria);
                                 printf("\nDigite o preco do veiculo: ");
@@ -533,6 +544,7 @@ int master(void) {
                                 printf("Tipo: %s\n", veiculos[i].tipo);
                                 printf("Estado: %s\n", veiculos[i].estado);
                                 printf("Localizacao: %s\n", veiculos[i].localizacao);
+                                printf("Autonomia: %s\n", veiculos[i].autonomia);
                                 printf("Bateria: %d\n", veiculos[i].bateria);
                                 printf("Preco: %.2f\n", veiculos[i].preco);
                                 }

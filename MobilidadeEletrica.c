@@ -3,19 +3,20 @@
 #include <string.h>
 #include "MobilidadeEletrica.h"
 
-MobilidadeEletrica* CriarMobilidadeEletrica(int id, char* tipo, char* estado, char* localizacao, double bateria, float preco) {
+MobilidadeEletrica* CriarMobilidadeEletrica(int id, char* tipo, char* estado, char* localizacao, char* autonomia, double bateria, float preco) {
     MobilidadeEletrica* novoMeio = (MobilidadeEletrica*) malloc(sizeof(MobilidadeEletrica));
     novoMeio->id = id;
     strcpy(novoMeio->tipo, tipo);
     strcpy(novoMeio->estado, estado);
     strcpy(novoMeio->localizacao, localizacao);
+    strcpy(novoMeio->autonomia, autonomia);
     novoMeio->bateria = bateria;
     novoMeio->preco = preco;
     return novoMeio;
 }
 
 MobilidadeEletrica* CriarMobilidadeEletricaFixa(void) {
-    return CriarMobilidadeEletrica(1, "Bicicleta eletrica", "Disponivel", "Praca da Republica", 80, 0.15);
+    return CriarMobilidadeEletrica(1, "Bicicleta eletrica", "Disponivel", "Praca da Republica", "600", 80, 0.15);
 }
 
 void AdicionarMobilidadeEletrica(MobilidadeEletrica** veiculos, int *numVeiculos) {
@@ -36,6 +37,10 @@ void AdicionarMobilidadeEletrica(MobilidadeEletrica** veiculos, int *numVeiculos
     printf("Digite a localizacao do veiculo: ");
     fgets(novoMeio->localizacao, sizeof(novoMeio->localizacao), stdin);
     strtok(novoMeio->localizacao, "\n");
+
+    printf("Digite a autonomia do veiculo: ");
+    fgets(novoMeio->autonomia, sizeof(novoMeio->autonomia), stdin);
+    strtok(novoMeio->autonomia, "\n");
 
     printf("Digite o preco do veiculo: ");
     scanf("%f", &novoMeio->preco);
