@@ -10,8 +10,7 @@ struct MobilidadeEletrica {
     char autonomia[50];
     double bateria;
     float preco;
-     MobilidadeEletrica *proximo;
-} ;
+};
 
 MobilidadeEletrica* CriarMobilidadeEletrica(int id, char* tipo, char* estado, char* localizacao, char* autonomia, double bateria, float preco);
 MobilidadeEletrica* CriarMobilidadeEletricaFixa(void);

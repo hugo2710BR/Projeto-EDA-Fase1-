@@ -1,9 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "Menu.h"
 #include "MobilidadeEletrica.h"
 #include "Cliente.h"
 #include "Gestor.h"
+#include "Aluguer.h"
+
+    int numVeiculos= 0;
+    int numClientes= 0;
+    int numGestores= 0;
 
 void menu(){
     printf("\nMENU:\n");
@@ -13,6 +19,8 @@ void menu(){
     printf("4 - Gestao Clientes\n");
     printf("5 - Gestao Gestores\n");
     printf("6 - Gestao Mobilidade\n");
+    printf("7 - Criar Aluguer\n");
+    printf("8 - Listar Alugueres\n");
     printf("0 - Sair\n");
     printf("Digite a opcao desejada: ");
 }
@@ -47,11 +55,11 @@ void GestaoMobilidade(){
 
 }
 
-int compare(const void *a, const void *b) {
+  int compare(const void *a, const void *b) {
     MobilidadeEletrica *elem1 = (MobilidadeEletrica *)a;
     MobilidadeEletrica *elem2 = (MobilidadeEletrica *)b;
     return (elem2->autonomia - elem1->autonomia);
-}
+    } 
 
 int master(void) {
     
@@ -63,9 +71,7 @@ int master(void) {
     Cliente *clientes = NULL;
     Gestor *gestores = NULL;
     
-    int numVeiculos= 0;
-    int numClientes= 0;
-    int numGestores= 0;
+  
 
     // Abrir o arquivo binário de clientes em modo de leitura
     FILE *arquivoCliente = fopen("clientes.bin", "rb");
@@ -180,11 +186,29 @@ int master(void) {
     }
 
     void imprimirMobilidadeEletrica(MobilidadeEletrica *mobilidadeFixa) {
-        printf("\n\nMobilidade Eletrica:\nID: %d\nTipo: %s\nEstado: %s\nLocalizacao: %s\nAutonomia: %s\nBateria: %d%%\nPreco: %.2f\n\n",
+        printf("\n\nMobilidade Eletrica:\nID: %d\nTipo: %s\nEstado: %s\nLocalizacao: %s\nAutonomia: %s\nBateria: %d\nPreco: %.2f\n\n",
                 mobilidadeFixa->id, mobilidadeFixa->tipo, mobilidadeFixa->estado, mobilidadeFixa->localizacao, mobilidadeFixa->autonomia, mobilidadeFixa->bateria, mobilidadeFixa->preco);
+        
+        int i, j;
+
+        //Listar por ordem descrescente autonomia
+        for (i = 0; i < numVeiculos - 1; i++){
+            for (j = 0; j < numVeiculos - i - 1; j++){
+                if (veiculos[j].autonomia < veiculos[j + 1].autonomia){
+                    MobilidadeEletrica temp = veiculos[j];
+                    veiculos[j] = veiculos[j+1];
+                    veiculos[j+1] = temp;
+                }
+            }
+        }
         for (int i = 0; i < numVeiculos; i++) {
-            printf("ID: %d\nTipo: %s\nEstado: %s\nLocalizacao: %s\nAutonomia: %s\nBateria: %d%%\nPreco: %.2f\n\n",
-                veiculos[i].id, veiculos[i].tipo, veiculos[i].estado, veiculos[i].localizacao, veiculos[i].autonomia, veiculos[i].bateria, veiculos[i].preco);
+                printf("\nID: %d\n", veiculos[i].id);
+                printf("Tipo: %s\n", veiculos[i].tipo);
+                printf("Estado: %s\n", veiculos[i].estado);
+                printf("Localizacao: %s\n", veiculos[i].localizacao);
+                printf("Autonomia: %s\n", veiculos[i].autonomia);
+                printf("Bateria: %d\n", veiculos[i].bateria);
+                printf("Preco: %.2f\n", veiculos[i].preco);
         }         
     }
 
@@ -595,6 +619,14 @@ int master(void) {
 
                 }while (OpcaoGestaoMobilidade != 0);
             break;
+            case 7:
+                system("cls");
+                atribuirAluguer(clientes, numClientes, veiculos, numVeiculos);
+            break;
+            case 8:
+                system("cls");
+                listarAlugueres();
+                break;
             case 0:
                 system("cls");
                 break;

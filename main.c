@@ -4,6 +4,7 @@
 #include "Cliente.h"
 #include "Gestor.h"
 #include "menu.h"
+#include "Aluguer.h"
 
 int main(void) {
     master();

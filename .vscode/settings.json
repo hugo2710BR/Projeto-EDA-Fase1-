@@ -3,6 +3,7 @@
         "mobilidadeeletrica.h": "c",
         "stdlib.h": "c",
         "gestor.h": "c",
-        "guardardadosbinario.h": "c"
+        "guardardadosbinario.h": "c",
+        "cliente.h": "c"
     }
 }

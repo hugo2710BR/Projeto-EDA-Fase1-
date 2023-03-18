@@ -1,8 +1,6 @@
 #ifndef CLIENTE_H
 #define CLIENTE_H
 
-#include "MobilidadeEletrica.h"
-
 typedef struct Cliente Cliente;
 
 struct Cliente {
