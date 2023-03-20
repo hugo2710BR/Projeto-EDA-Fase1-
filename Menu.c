@@ -599,7 +599,7 @@ int master(void) {
                             system("cls");
                             printf("\n\nMobilidade:\n");
                             for (int i = 0; i < numVeiculos; i++) {
-                                printf("ID: %d\n", veiculos[i].id);
+                                printf("\nID: %d\n", veiculos[i].id);
                                 printf("Tipo: %s\n", veiculos[i].tipo);
                                 printf("Estado: %s\n", veiculos[i].estado);
                                 printf("Localizacao: %s\n", veiculos[i].localizacao);
