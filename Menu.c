@@ -57,7 +57,7 @@ void GestaoGestores(){
 }
 
 //Função para imprimir o menu de gestão de mobilidade
-void GestaoMobilidade(){
+void ImprimirGestaoMobilidade(){
     printf("\nMenu Gestao Veiculo:\n");
     printf("1 - Adicionar Veiculo\n");
     printf("2 - Alterar Veiculo\n");
@@ -519,7 +519,7 @@ int master(void) {
             case 6:
                 do{
                     system("cls");
-                    GestaoMobilidade();
+                    ImprimirGestaoMobilidade();
                     scanf("%d", &OpcaoGestaoMobilidade);
                     getchar(); // Limpar o buffer do teclado
 
