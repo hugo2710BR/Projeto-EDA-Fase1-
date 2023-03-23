@@ -11,6 +11,13 @@
  * @param[out] email 
  * @param[out] senha 
  */
+
+/// @brief 
+/// @param id 
+/// @param nome 
+/// @param email 
+/// @param senha 
+/// @return 
 Gestor* CriarGestor(int id, char* nome, char* email, char* senha) {
     Gestor* novoGestor = (Gestor*) malloc(sizeof(Gestor));
     novoGestor->id = id;
@@ -20,10 +27,16 @@ Gestor* CriarGestor(int id, char* nome, char* email, char* senha) {
     return novoGestor;
 }
 
+/// @brief 
+/// @param  
+/// @return 
 Gestor* CriarGestorFixo(void) {
     return CriarGestor(1, "Maria Fernandes", "maria.fernandes@email.com", "senha123");
 }
 
+/// @brief 
+/// @param gestores 
+/// @param numGestores 
 void AdicionarGestor(Gestor** gestores, int *numGestores) {
     Gestor *novoGestor = (Gestor*) malloc(sizeof(Gestor));
     

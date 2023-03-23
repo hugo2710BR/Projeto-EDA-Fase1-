@@ -10,6 +10,4 @@ void menu();
 void GestaoClientes();
 void GestaoGestores();
 void ImprimirGestaoMobilidade();
-int compare(const void *a, const void *b);
-
 #endif

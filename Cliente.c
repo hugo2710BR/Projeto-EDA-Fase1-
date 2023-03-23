@@ -12,6 +12,12 @@
  * @param[out] saldo 
  */
 
+/// @brief 
+/// @param id 
+/// @param nome 
+/// @param email 
+/// @param saldo 
+/// @return 
 Cliente* CriarCliente(int id, char* nome, char* email, float saldo) {
     Cliente* novoCliente = (Cliente*) malloc(sizeof(Cliente));
     novoCliente->id = id;
@@ -22,10 +28,16 @@ Cliente* CriarCliente(int id, char* nome, char* email, float saldo) {
     return novoCliente;
 }
 
+/// @brief 
+/// @param  
+/// @return 
 Cliente* CriarClienteFixo(void) {
     return CriarCliente(1, "Joao Silva", "joao.silva@email.com", 50.0);
 }
 
+/// @brief 
+/// @param clientes 
+/// @param numClientes 
 void AdicionarCliente(Cliente** clientes, int *numClientes) {
     Cliente *novoCliente = (Cliente*) malloc(sizeof(Cliente));
     

@@ -19,7 +19,9 @@ int numVeiculos= 0;
 int numClientes= 0;
 int numGestores= 0;
 
+
 //Função para imprimir o Menu
+
 void menu(){
     printf("\nMENU:\n");
     printf("1 - Listar Mobilidade Eletrica\n");

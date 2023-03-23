@@ -13,8 +13,22 @@ typedef struct {
    
 }Cliente;
 
+/// @brief 
+/// @param id 
+/// @param nome 
+/// @param email 
+/// @param saldo 
+/// @return 
 Cliente* CriarCliente(int id, char* nome, char* email, float saldo);
+
+/// @brief 
+/// @param  
+/// @return 
 Cliente* CriarClienteFixo(void);
+
+/// @brief 
+/// @param clientes 
+/// @param numClientes 
 void AdicionarCliente(Cliente** clientes, int *numClientes);
 
 #endif /* CLIENTE_H */
