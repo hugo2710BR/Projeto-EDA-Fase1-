@@ -1,6 +1,8 @@
 #ifndef ALUGUER_H
 #define ALUGUER_H
 
+#define N 11
+
 #include <stdbool.h>
 #include "Cliente.h" 
 #include "MobilidadeEletrica.h"
@@ -13,8 +15,8 @@
 typedef struct {
     int idCliente;
     int idVeiculo;
-    char dataInicio[11]; 
-    char dataTermino[11];
+    char dataInicio[N]; 
+    char dataTermino[N];
     double preco; 
     bool aluguerAtivo; 
 } Aluguer;

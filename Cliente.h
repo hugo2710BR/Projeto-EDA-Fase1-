@@ -1,14 +1,15 @@
 #ifndef CLIENTE_H
 #define CLIENTE_H
 
+#define N 50
 /**
  * @brief Ficheiro para declarar as funções e struct utilizados no ficheiro .c
  * 
  */
 typedef struct {
     int id;
-    char nome[50];
-    char email[50];
+    char nome[N];
+    char email[N];
     float saldo;
    
 }Cliente;
